@@ -14,7 +14,7 @@ urlpatterns = [
 
     path('view-address/<int:id>', views.view_address, name="view_address"),
 
-    path('edit-address', views.edit_address, name="edit_address"),
+    path('edit-address/<int:edit_id>', views.edit_address, name="edit_address"),
 
     path('logout', views.logout, name="logout"),
 

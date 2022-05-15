@@ -54,14 +54,15 @@ def address_book(request):
 def add_address(request):
     msg = ""
     if request.method == 'POST':
+
         image = request.FILES['image']
         username = request.POST['uname']
         phone = request.POST['phone']
         email_id = request.POST['email']
         place = request.POST['place']
         address = request.POST['address']
-        user_id = Register.objects.get(id=request.session['user_id'])
-        add_address = AddAddress(user_id=user_id, image=image, username=username,
+        userid = Register.objects.get(id=request.session['user_id'])
+        add_address = AddAddress(user_id=userid, image=image, username=username,
                                  number=phone, email_id=email_id, place=place, address=address)
         add_address.save()
         return redirect('address:address_book')
@@ -73,8 +74,10 @@ def add_address(request):
 @auth_user
 def view_address(request, id):
     view_address = AddAddress.objects.get(id=id)
+    
 
     if request.method == 'POST':
+        
         address_id = request.POST['view_id']
         address = AddAddress.objects.get(id=address_id)
         address.delete()
@@ -84,15 +87,15 @@ def view_address(request, id):
 
 
 @auth_user
-def edit_address(request):
-    edit_address = AddAddress.objects.get(user_id=request.session['user_id'])
+def edit_address(request,edit_id):
+    edit_address = AddAddress.objects.get(id=edit_id)
 
     if request.method == 'POST':
         if 'image' in request.FILES:
             image = request.FILES['image']
         else:
             image = edit_address.image
-
+        
         username = request.POST['uname']
         phone = request.POST['phone']
         email_id = request.POST['email']

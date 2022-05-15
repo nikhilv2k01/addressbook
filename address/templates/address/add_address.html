@@ -59,24 +59,8 @@
             onsubmit="return validate();"
             enctype="multipart/form-data"
           >
-            {% csrf_token %} {% if view_address %}
-            <div class="upload" style="margin-top: 3%">
-              <img
-                src="media{{view_address.image}}"
-                id="output"
-                onchange=""
-                width="100"
-                height="100"
-                alt=""
-              />
-
-              <div class="round">
-                <input type="file" id="image" name="image" required />
-                <i class="fa fa-camera" style="color: #fff"></i>
-              </div>
-            </div>
-
-            {% else %}
+            {% csrf_token %} 
+           
             <div class="upload" style="margin-top: 3%">
               <img
                 src="{% static 'images/noprofile.jpg' %}"
@@ -89,7 +73,7 @@
                 <i class="fa fa-camera" style="color: #fff"></i>
               </div>
             </div>
-            {% endif %}
+            
 
             <div class="form-group text-center">
               <small id="image_err"></small>
@@ -157,6 +141,7 @@
               <small style="color: green">{{msg}}</small>
               <small style="color: red">{{msg1}}</small>
             </div>
+
 
             <button type="submit" class="btn btn-primary">Register</button>
           </form>
