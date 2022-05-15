@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>login</title>
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+
+    <!-- bootstrap v4.6.1 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+      integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+      crossorigin="anonymous"
+    />
+  </head>
+  
+  <body>
+    <div id="hf" class="child">ADDRESS BOOK</div>
+
+    <div class="pdt">
+      <form
+        action=""
+        method="POST"
+        style="width: 50%; border: 1px solid #ccc; padding: 20px"
+      >
+        {% csrf_token %}
+
+        <center>
+          <h2 class="pdb">Login</h2>
+        </center>
+
+        <!-- Username input -->
+        <div class="form-outline mb-4">
+          <input
+            type="text"
+            name="logemail"
+            id="logemail"
+            class="form-control"
+            placeholder="Email"
+          />
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+          <input
+            type="password"
+            name="logpass"
+            id="logpass"
+            class="form-control"
+            placeholder="Password"
+          />
+        </div>
+        <small style="color: red">{{err_msg}}</small>
+
+        <!-- 2 column grid layout for inline styling -->
+        <div class="row mb-4">
+          <div class="col">
+            <!-- Simple link -->
+            <a href="">Forgot password?</a>
+          </div>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block mb-4">
+          Login
+        </button>
+
+        <!-- Register buttons -->
+        <div class="text-center">
+          <p>Not a member? <a href="{% url 'address:signup' %}">Register</a></p>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

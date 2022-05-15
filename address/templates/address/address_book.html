@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Address Book</title>
+
+  <!-- custom css -->
+  <link rel="stylesheet" href="{% static 'css/address.css' %}" />
+   <!-- custom css -->
+   <link rel="stylesheet" href="{% static 'css/address_book_file.css' %}" />
+
+  <!-- bootstrap v4.6.1 css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous" />
+  <!-- bootstrap 3.3.7 js  -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- bootstrap 4.6.1 js  -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+
+  <!-- jquery js -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+
+
+<body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+      <h3 class="navbar-brand">ADDRESS BOOK</h3>
+
+  
+      <div class="collapse navbar-collapse" id="navbarNav"></div>
+
+      <center>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+
+              <form action="{% url 'address:search' %}" method="GET">
+
+              <div class="input-group" id="boot-search-box">
+                <input type="text" name="search" class="form-control" placeholder="Search" />
+
+
+                <button type="submit"  class="btn btn-primary">
+                  search
+                </button>
+              </form>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
+      </center>
+
+      <a class="float-right btn btn-sm btn-success" href="{% url 'address:add_address' %}"><i
+          class="fa fa-plus"></i></a>
+      <div style="padding-left: 14px">
+        <a href="{% url 'address:logout' %}" class="float-right btn btn-info btn-sm">
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+        </a>
+      </div>
+    </nav>
+  
+
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if address %} {% for a in address %}
+    <a class="acard" href="{% url 'address:view_address' a.id %}">
+      <div class="card p-1 text-center">
+        <blockquote class="blockquote mb-0" style="text-align: center">
+          <div class="upload float-left">
+            <img src="media/{{ a.image }}" width="100" height="100" alt="" />
+          </div>
+
+          <div class="float-left text-left" style="padding-left: 15px; padding-top: 2 px">
+            <h5>{{ a.username }}</h5>
+            <h5>{{ a.number }}</h5>
+            <h5>{{ a.email_id }}</h5>
+          </div>
+        </blockquote>
+      </div>
+    </a>
+    {% endfor %} {% else %}
+    <div class="text-center">
+      <strong style="color: red; background-color: black">There are no records at the moment. You can save address by
+        tapping
+        the + button</strong>
+    </div>
+    {% endif %}
+  </form>
+</body>
+
+</html>
