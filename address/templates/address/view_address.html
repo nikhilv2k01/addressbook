@@ -1,11 +1,11 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Address</title>
 
     <!-- custom css -->
     <link rel="stylesheet" href="{% static 'css/view_address.css' %}" />
@@ -15,6 +15,7 @@
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <!-- bootstrap css v3.3.7 css -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
     <!-- bootstrap js v3.3.7 js -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -30,15 +31,14 @@
     <!-- pdf script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
 
-    <title>View Address</title>
-
 </head>
-
 <body>
-    <!-- header section -->
 
+    <!-- header start -->
     <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-        <div style="width: 100%; ">
+
+        <div style="width: 100%;">
+
             <a href="{% url 'address:address_book' %}">
                 <h3 style="margin: 0;" class="navbar-brand">ADDRESS BOOK</h3>
             </a>
@@ -48,9 +48,11 @@
 
                 <div class="text-right " style=" font-size: 25px; ">
 
+                    <!-- Edit button -->
                     <a href="{% url 'address:edit_address' view_address.id %}" style="color: black;"><button type="button"><i
                                 class="fa fa-pencil"></i></button></a>
 
+                    <!-- Delete button -->
                     <button type="submit"><i class="fa fa-trash"></i></button>
 
                     <input type="hidden" name="view_id" value="{{view_address.id}}" id="">
@@ -59,9 +61,12 @@
         </div>
 
     </nav>
+    <!-- Header end -->
 
+    <!-- Content body start -->
     <div id="test">
 
+        <!-- image field input -->
         <div class="upload" style=" width: 200px; height: 200px; padding-top: 10px;">
 
             <img src="/media/{{view_address.image}}" width=200 height=200 alt="">
@@ -74,8 +79,13 @@
                 <h2 style="color: black; ">{{view_address.username|upper}}</h2>
             </div>
         </center>
+
+        <!-- Detailes section start -->
         <div class="container" style="background-color: rgb(221, 221, 221); display: block; ">
+
             <br>
+
+            <!-- Phone number detailes -->
             <div style="display: flex; font-size: 25px;">
 
                 <div style="padding-right: 20px; width: 40px;"><i class="fa fa-mobile"></i> </div>
@@ -85,6 +95,8 @@
             </div>
 
             <br>
+
+            <!-- Email detailes -->
             <div style="display: flex; font-size: 25px;">
 
                 <div style="padding-right: 20px; width: 40px;"><i class="fa fa-envelope-o"></i></div>
@@ -92,8 +104,10 @@
                     <h3 hidden>Email</h3>{{view_address.email_id}}
                 </div>
             </div>
+
             <br>
 
+            <!-- Address detailes -->
             <div style="display: flex; font-size: 25px;">
 
                 <div style="padding-right: 20px; width: 40px;"><i class="fa fa-address-card"></i></i> </div>
@@ -101,8 +115,10 @@
                     <h3 hidden>Address</h3>{{view_address.address}}
                 </div>
             </div>
+
             <br>
 
+            <!-- Place detailes -->
             <div style="display: flex; font-size: 25px;">
 
                 <div style="padding-right: 20px; width: 40px;"><i class="fa fa-location-arrow"></i></i> </div>
@@ -112,21 +128,17 @@
             </div>
             <br>
 
-
         </div>
+        <!-- Detailes session end -->
 
         </form>
 
     </div>
+
+    <!-- Pdf download button  -->
     <div class="text-center" style="padding-top: 5px;">
         <a href="javascript:generatePDF()"><button class="btn btn-primary">Dowload PDF</button></a>
     </div>
-
-    <div></div>
-
-
-
-
 
     <script>
         function generatePDF() {
@@ -142,6 +154,6 @@
                 });
         }
     </script>
-</body>
 
+</body>
 </html>

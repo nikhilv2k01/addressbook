@@ -1,119 +1,106 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Result</title>
 
     <!-- custom css -->
     <link rel="stylesheet" href="{% static 'css/address.css' %}" />
     <!-- custom css -->
-   <link rel="stylesheet" href="{% static 'css/address_book_file.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/address_book_file.css' %}" />
 
     <!-- bootstrap css v4.6.1 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+      integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+      crossorigin="anonymous"
+    />
     <!-- bootstrap css v3.3.7 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+
     <!-- bootstrap js v3.3.7 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!-- font awesome css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <!-- font awesome js -->
-    <script src="https://your-site-or-cdn.com/fontawesome/v6.1.1/js/all.js" data-auto-replace-svg="nest"></script>
+    <script
+      src="https://your-site-or-cdn.com/fontawesome/v6.1.1/js/all.js"
+      data-auto-replace-svg="nest"
+    ></script>
 
     <!-- font -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"
+      rel="stylesheet"
+    />
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!-- pdf script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
-
-    <title>Search Result</title>
-
-</head>
-
-<body>
-    <!-- header section -->
+  </head>
+  <body>
+    <!-- header start -->
     <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-        <a href="{% url 'address:address_book' %}">
-            <h3 class="navbar-brand">ADDRESS BOOK</h3>
-        </a>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-        </div>
-
+      <a href="{% url 'address:address_book' %}">
+        <h3 class="navbar-brand">ADDRESS BOOK</h3>
+      </a>
     </nav>
+    <!-- Header end -->
+
+    <!-- Content body start -->
     {% if username %}
-    <div style="color: rgb(255, 0, 0);">
-        <h2>Search Result</h2>
+    <div style="color: rgb(255, 0, 0)">
+      <h2>Search Result</h2>
     </div>
     {% endif %}
 
-        <form action="" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %} {% if username %} {% for user in username %}
 
-            {% if username %}
-            {% for user in username %}
-            
-            <a class="acard" href="{% url 'address:view_address' user.id %}">
-                <div class="card p-1 text-center">
-                    
-                    <blockquote class="blockquote mb-0" style="text-align: center">
-                        <div class="upload float-left">
-                            <img src="media/{{ user.image }}" width="100" height="100" alt="" />
-                        </div>
-
-                        <div class="float-left text-left" style="padding-left: 15px; padding-top: 3px">
-                            <h5>{{ user.username }}</h5>
-                            <h5>{{ user.number }}</h5>
-                            <h5>{{ user.email_id }}</h5>
-                        </div>
-                    </blockquote>
-                
-                </div>
-            </a>
-           
-                
-            
-            {% endfor %} 
-            {% else %}
-            <div class="text-center">
-                <strong style="color: red; background-color: black">There are no records at the moment. </strong>
+      <a class="acard" href="{% url 'address:view_address' user.id %}">
+        <div class="card p-1 text-center">
+          <blockquote class="blockquote mb-0" style="text-align: center">
+            <!-- Image field -->
+            <div class="upload float-left">
+              <img
+                src="media/{{ user.image }}"
+                width="100"
+                height="100"
+                alt=""
+              />
             </div>
-            {% endif %}
 
-            
-        </form>
+            <div
+              class="float-left text-left"
+              style="padding-left: 15px; padding-top: 3px"
+            >
+              <h5>{{ user.username }}</h5>
+              <h5>{{ user.number }}</h5>
+              <h5>{{ user.email_id }}</h5>
+            </div>
+          </blockquote>
+        </div>
+      </a>
 
-   
-
-    
-
-    <!-- <input type="text" name="show_html" id=""> -->
-
-
-    <script>
-        function generatePDF() {
-            var doc = new jsPDF();  //create jsPDF object
-            doc.fromHTML(document.getElementById("test"), // page element which you want to print as PDF
-                15,
-                15,
-                {
-                    'width': 170  //set width
-                },
-                function (a) {
-                    doc.save("HTML2PDF.pdf"); // save file name as HTML2PDF.pdf
-                });
-        }
-    </script>
-</body>
-
+      {% endfor %} {% else %}
+      <div class="text-center">
+        <strong style="color: red; background-color: black"
+          >There are no records at the moment.
+        </strong>
+      </div>
+      {% endif %}
+    </form>
+  </body>
 </html>

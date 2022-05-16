@@ -1,32 +1,32 @@
 body {
-    background-image: url("../../static/images/981.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+  background-image: url("../../static/images/981.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .child {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    font-size: 20px;
-    line-height: 20px;
-    color: #ffe8c3;
-    background-color: whitesmoke;
-    border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-size: 20px;
+  line-height: 20px;
+  color: #ffe8c3;
+  background-color: whitesmoke;
+  border-radius: 2px;
 }
 
 #hf {
-    background-color: #6c757d !important;
+  background-color: #6c757d !important;
 }
 
 .pdt {
-    padding-top: 5%;
-    padding-left: 35%;
-    color: whitesmoke;
+  padding-top: 5%;
+  padding-left: 35%;
+  color: whitesmoke;
 }
 
 .pdb {
-    padding-bottom: 5%;
+  padding-bottom: 5%;
 }

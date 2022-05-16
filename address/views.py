@@ -74,10 +74,9 @@ def add_address(request):
 @auth_user
 def view_address(request, id):
     view_address = AddAddress.objects.get(id=id)
-    
 
     if request.method == 'POST':
-        
+
         address_id = request.POST['view_id']
         address = AddAddress.objects.get(id=address_id)
         address.delete()
@@ -87,7 +86,7 @@ def view_address(request, id):
 
 
 @auth_user
-def edit_address(request,edit_id):
+def edit_address(request, edit_id):
     edit_address = AddAddress.objects.get(id=edit_id)
 
     if request.method == 'POST':
@@ -95,7 +94,7 @@ def edit_address(request,edit_id):
             image = request.FILES['image']
         else:
             image = edit_address.image
-        
+
         username = request.POST['uname']
         phone = request.POST['phone']
         email_id = request.POST['email']
@@ -132,6 +131,6 @@ def logout(request):
     return redirect('address:login')
 
 
-def test(request):
-    
-    return render(request, "address/test.html")
+def test1(request):
+
+    return render(request, "address/test_geo_coordinates.html")

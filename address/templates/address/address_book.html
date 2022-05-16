@@ -33,14 +33,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 
-
 <body>
-
-
+  <!-- Header start -->
     <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+
       <h3 class="navbar-brand">ADDRESS BOOK</h3>
 
-  
       <div class="collapse navbar-collapse" id="navbarNav"></div>
 
       <center>
@@ -50,40 +48,42 @@
 
               <form action="{% url 'address:search' %}" method="GET">
 
+                <!-- Search bar -->
               <div class="input-group" id="boot-search-box">
-                <input type="text" name="search" class="form-control" placeholder="Search" />
 
+                <input type="text" name="search" class="form-control" placeholder="Search" />
 
                 <button type="submit"  class="btn btn-primary">
                   search
                 </button>
-              </form>
 
               </div>
-
+              </form>      
             </div>
           </div>
-        </div>
-        </div>
-        </div>
+        
       </center>
-
+      <!-- Add button -->
       <a class="float-right btn btn-sm btn-success" href="{% url 'address:add_address' %}"><i
           class="fa fa-plus"></i></a>
       <div style="padding-left: 14px">
+        <!-- Logout button -->
         <a href="{% url 'address:logout' %}" class="float-right btn btn-info btn-sm">
           <span class="glyphicon glyphicon-log-out"></span> Log out
         </a>
       </div>
-    </nav>
-  
 
+    </nav>
+    <!-- Header end -->
+  
+    <!-- Content body start -->
   <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {% if address %} {% for a in address %}
     <a class="acard" href="{% url 'address:view_address' a.id %}">
       <div class="card p-1 text-center">
         <blockquote class="blockquote mb-0" style="text-align: center">
+          <!-- Image field -->
           <div class="upload float-left">
             <img src="media/{{ a.image }}" width="100" height="100" alt="" />
           </div>
@@ -104,6 +104,7 @@
     </div>
     {% endif %}
   </form>
+  <!-- Content body end -->
 </body>
 
 </html>

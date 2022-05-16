@@ -7,7 +7,7 @@ function validate() {
   let email_pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
   let phone_pattern = /^[6-9]\d{9}$/;
 
-  // name
+  // Name
   if (uname.value == "") {
     document.getElementById("name_err").innerHTML = "*Please fill this field";
     document.getElementById("name_err").style.color = "red";
@@ -17,7 +17,8 @@ function validate() {
     document.getElementById("name_err").innerHTML = "";
     document.getElementById("uname").style.borderColor = "";
   }
-  // phone
+
+  // Phone
   if (phone.value == "") {
     document.getElementById("phone_err").innerHTML = "*Please fill this field";
     document.getElementById("phone_err").style.color = "red";
@@ -28,6 +29,7 @@ function validate() {
     document.getElementById("phone").style.borderColor = "";
   }
 
+  // Phone pattern
   if (phone.value.match(phone_pattern)) {
     document.getElementById("phone_err").innerHTML = "";
     document.getElementById("phone").style.borderColor = "";
@@ -38,7 +40,8 @@ function validate() {
     document.getElementById("phone").style.borderColor = "red";
     return false;
   }
-  // // email
+
+  // Email
   if (email.value == "") {
     document.getElementById("email_err").innerHTML = "*Please fill this field";
     document.getElementById("email_err").style.color = "red";
@@ -49,6 +52,7 @@ function validate() {
     document.getElementById("email").style.borderColor = "";
   }
 
+  // Email pattern
   if (email.value.match(email_pattern)) {
     document.getElementById("email_err").innerHTML = "";
     document.getElementById("email").style.borderColor = "";
@@ -59,7 +63,7 @@ function validate() {
     return false;
   }
 
-  // place
+  // Place
   if (place.value == "") {
     document.getElementById("place_err").innerHTML = "*Please fill this field";
     document.getElementById("place_err").style.color = "red";
@@ -69,7 +73,8 @@ function validate() {
     document.getElementById("place_err").innerHTML = "";
     document.getElementById("place").style.borderColor = "";
   }
-  // // address
+
+  // Address
   if (address.value == "") {
     document.getElementById("address_err").innerHTML =
       "*Please fill this field";

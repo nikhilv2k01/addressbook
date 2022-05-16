@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Address</title>
 
     <!-- custom css -->
     <link rel="stylesheet" href="{% static 'css/edit_address.css' %}" />
@@ -27,17 +28,17 @@
       src="https://your-site-or-cdn.com/fontawesome/v6.1.1/js/all.js"
       data-auto-replace-svg="nest"
     ></script>
-
-    <title>Edit Address</title>
   </head>
-
   <body>
+    <!-- Header start -->
     <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
       <a href="{% url 'address:address_book' %}">
         <h3 class="navbar-brand">ADDRESS BOOK</h3></a
       >
     </nav>
+    <!-- Header end -->
 
+    <!-- Content body start -->
     <div id="main-wrapper">
       <div class="content-body">
         <div class="container-fluid">
@@ -49,9 +50,10 @@
           >
             {% csrf_token %}
 
+            <!-- Image field input -->
             <div class="upload" style="margin-top: 3%">
               <img
-                src="media/{{edit_address.image}}"
+                src="/media/{{edit_address.image}}"
                 width="100"
                 height="100"
                 alt=""
@@ -68,6 +70,7 @@
               </div>
             </div>
 
+            <!-- Full name input -->
             <div class="form-group">
               <label for="name">Full Name</label>
               <input
@@ -81,6 +84,7 @@
               <small id="name_err"></small>
             </div>
 
+            <!-- Phone number input -->
             <div class="form-group">
               <label for="number">Phone Number</label>
               <input
@@ -94,6 +98,7 @@
               <small id="phone_err"></small>
             </div>
 
+            <!-- Email input -->
             <div class="form-group">
               <label for="email">Email</label>
               <input
@@ -108,6 +113,7 @@
               <small id="email_err"></small>
             </div>
 
+            <!-- Place input -->
             <div class="form-group">
               <label for="name">Place</label>
               <input
@@ -121,6 +127,7 @@
               <small id="name_err"></small>
             </div>
 
+            <!-- Address input -->
             <div class="form-group">
               <label for="address">Address</label>
               <textarea
@@ -134,13 +141,106 @@
               <small id="address_err"></small>
             </div>
 
-            
-
+            <!-- Save button -->
             <button type="submit" class="btn btn-primary">Save</button>
           </form>
         </div>
       </div>
     </div>
+    <!-- Content body end -->
+
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSfs8umRCxomZSNp2fXHpHvX4ju4WEkHo&callback=initAutocomplete&libraries=places&v=weekly"
+      defer
+    ></script>
+    <script>
+      // This sample uses the Places Autocomplete widget to:
+      // 1. Help the user select a place
+      // 2. Retrieve the address components associated with that place
+      // 3. Populate the form fields with those address components.
+      // This sample requires the Places library, Maps JavaScript API.
+      // Include the libraries=places parameter when you first load the API.
+      // For example: <script
+      // src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvXE2sx_Xp0zinLtxJRo7DeNwhklESERI&libraries=places">
+      let autocomplete;
+      let address1Field;
+      let address2Field;
+      // let postalField;
+
+      function initAutocomplete() {
+        address1Field = document.querySelector("#place");
+        address2Field = document.querySelector("#address");
+        // postalField = document.querySelector("#postcode");
+        // Create the autocomplete object, restricting the search predictions to
+        // addresses in the US and Canada.
+        autocomplete = new google.maps.places.Autocomplete(address1Field, {
+          componentRestrictions: { country: ["us", "ca"] },
+          fields: ["address_components", "geometry"],
+          types: ["address"],
+        });
+        address1Field.focus();
+        // When the user selects an address from the drop-down, populate the
+        // address fields in the form.
+        autocomplete.addListener("place_changed", fillInAddress);
+      }
+
+      function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        const place = autocomplete.getPlace();
+        let address1 = "";
+        // let postcode = "";
+
+        // Get each component of the address from the place details,
+        // and then fill-in the corresponding field on the form.
+        // place.address_components are google.maps.GeocoderAddressComponent objects
+        // which are documented at http://goo.gle/3l5i5Mr
+        for (const component of place.address_components) {
+          // @ts-ignore remove once typings fixed
+          const componentType = component.types[0];
+
+          switch (componentType) {
+            case "street_number": {
+              address1 = `${component.long_name} ${address1}`;
+              break;
+            }
+
+            case "route": {
+              address1 += component.short_name;
+              break;
+            }
+
+            // case "postal_code": {
+            //   postcode = `${component.long_name}${postcode}`;
+            //   break;
+            // }
+
+            // case "postal_code_suffix": {
+            //   postcode = `${postcode}-${component.long_name}`;
+            //   break;
+            // }
+            // case "locality":
+            //   document.querySelector("#locality").value = component.long_name;
+            //   break;
+            // case "administrative_area_level_1": {
+            //   document.querySelector("#state").value = component.short_name;
+            //   break;
+            // }
+            // case "country":
+            // document.querySelector("#country").value = component.long_name;
+            // break;
+          }
+        }
+
+        address1Field.value = address1;
+        // postalField.value = postcode;
+        // After filling the form with address components from the Autocomplete
+        // prediction, set cursor focus on the second address line to encourage
+        // entry of subpremise information such as apartment, unit, or floor number.
+        address2Field.focus();
+      }
+
+      window.initAutocomplete = initAutocomplete;
+    </script>
 
     <script src="{% static 'styles/js/address_validation.js' %}"></script>
   </body>

@@ -19,5 +19,6 @@ urlpatterns = [
     path('logout', views.logout, name="logout"),
 
     path('search', views.search, name="search"),
-    path('test', views.test, name="test"),
+
+    path('geo', views.test1, name="geo"),
 ]
