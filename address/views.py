@@ -21,7 +21,7 @@ def signup(request):
             register = Register(username=reg_username,
                                 email=reg_email, password=reg_password)
             register.save()
-    return render(request, 'address/signup.html', {'msg': msg, })
+    return render(request, 'address/login.html', {'msg': msg, })
 
 
 def login(request):
