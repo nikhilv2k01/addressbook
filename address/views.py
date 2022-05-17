@@ -14,14 +14,17 @@ def signup(request):
         reg_username = request.POST['regname']
         reg_email = request.POST['regemail']
         reg_password = request.POST['regpass']
+
         user_exist = Register.objects.filter(email=reg_email)
+
         if user_exist:
             msg = "Email already exist"
         else:
             register = Register(username=reg_username,
                                 email=reg_email, password=reg_password)
             register.save()
-    return render(request, 'address/login.html', {'msg': msg, })
+            return redirect('address:login')
+    return render(request, 'address/signup.html', {'msg': msg, })
 
 
 def login(request):
@@ -29,8 +32,10 @@ def login(request):
     if request.method == 'POST':
         log_email = request.POST['logemail']
         log_password = request.POST['logpass']
+
         user_exist = Register.objects.filter(
             email=log_email, password=log_password).exists()
+
         if user_exist:
             user_detail = Register.objects.get(
                 email=log_email, password=log_password)
@@ -61,6 +66,7 @@ def add_address(request):
         email_id = request.POST['email']
         place = request.POST['place']
         address = request.POST['address']
+
         userid = Register.objects.get(id=request.session['user_id'])
         add_address = AddAddress(user_id=userid, image=image, username=username,
                                  number=phone, email_id=email_id, place=place, address=address)
