@@ -68,6 +68,7 @@ def add_address(request):
         address = request.POST['address']
 
         userid = Register.objects.get(id=request.session['user_id'])
+        
         add_address = AddAddress(user_id=userid, image=image, username=username,
                                  number=phone, email_id=email_id, place=place, address=address)
         add_address.save()
@@ -140,3 +141,33 @@ def logout(request):
 def test1(request):
 
     return render(request, "address/test_geo_coordinates.html")
+
+
+def web_entities_include_geo_results(path):
+    """Detects web annotations given an image, using the geotag metadata
+    in the image to detect web entities."""
+    from google.cloud import vision
+    import io
+    client = vision.ImageAnnotatorClient()
+
+    with io.open(path, 'rb') as image_file:
+        content = image_file.read()
+
+    image = vision.Image(content=content)
+
+    web_detection_params = vision.WebDetectionParams(
+        include_geo_results=True)
+    image_context = vision.ImageContext(
+        web_detection_params=web_detection_params)
+
+    response = client.web_detection(image=image, image_context=image_context)
+
+    for entity in response.web_detection.web_entities:
+        print('\n\tScore      : {}'.format(entity.score))
+        print(u'\tDescription: {}'.format(entity.description))
+
+    if response.error.message:
+        raise Exception(
+            '{}\nFor more info on error messages, check: '
+            'https://cloud.google.com/apis/design/errors'.format(
+                response.error.message))
